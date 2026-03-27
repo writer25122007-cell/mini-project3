@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking Management System</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #2c3e50; }
+    .section { margin-bottom: 20px; }
+    label { display: block; margin-top: 10px; }
+    input, button { margin-top: 5px; padding: 5px; }
+    #output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Banking Management System</h1>
+
+  <div class="section">
+    <h2>Create Account</h2>
+    <label>Account Number: <input type="number" id="accountNumber"></label>
+    <label>Name: <input type="text" id="name"></label>
+    <label>Initial Balance: <input type="number" id="balance"></label>
+    <button onclick="createAccount()">Create Account</button>
+  </div>
+
+  <div class="section">
+    <h2>Deposit Money</h2>
+    <label>Amount: <input type="number" id="depositAmount"></label>
+    <button onclick="deposit()">Deposit</button>
+  </div>
+
+  <div class="section">
+    <h2>Withdraw Money</h2>
+    <label>Amount: <input type="number" id="withdrawAmount"></label>
+    <button onclick="withdraw()">Withdraw</button>
+  </div>
+
+  <div class="section">
+    <h2>Display Account Details</h2>
+    <button onclick="showAccount()">Show Account</button>
+  </div>
+
+  <div id="output"></div>
+
+  <script>
+    let account = { number: 0, name: "", balance: 0 };
+
+    function createAccount() {
+      account.number = document.getElementById("accountNumber").value;
+      account.name = document.getElementById("name").value;
+      account.balance = parseFloat(document.getElementById("balance").value);
+      document.getElementById("output").innerText = "Account Created Successfully!";
+    }
+
+    function deposit() {
+      let amount = parseFloat(document.getElementById("depositAmount").value);
+      account.balance += amount;
+      document.getElementById("output").innerText = 
+        "Deposited " + amount + ". New Balance: " + account.balance;
+    }
+
+    function withdraw() {
+      let amount = parseFloat(document.getElementById("withdrawAmount").value);
+      if (amount > account.balance) {
+        document.getElementById("output").innerText = "Insufficient Balance!";
+      } else {
+        account.balance -= amount;
+        document.getElementById("output").innerText = 
+          "Withdrawn " + amount + ". New Balance: " + account.balance;
+      }
+    }
+
+    function showAccount() {
+      document.getElementById("output").innerText =
+        "Account Number: " + account.number + "\n" +
+        "Name: " + account.name + "\n" +
+        "Balance: " + account.balance;
+    }
+  </script>
+</body>
+</html>
+
